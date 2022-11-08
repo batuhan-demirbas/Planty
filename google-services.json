@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "953365024390",
+    "project_id": "planty-be61b",
+    "storage_bucket": "planty-be61b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953365024390:android:1eccdff94e8d4c2f938b07",
+        "android_client_info": {
+          "package_name": "com.batuhandemirbas.planty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953365024390-lutku7lrb5q6of939glvshk9r9b9d4r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJx36XAeFAicQhPpNrrzoGhantu2sBQRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953365024390-lutku7lrb5q6of939glvshk9r9b9d4r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
