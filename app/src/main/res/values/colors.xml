@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="primary_100">#D8F3DC</color>
+    <color name="primary_200">#B7E4C7</color>
+    <color name="primary_300">#95D5B2</color>
+    <color name="primary_400">#74C69D</color>
+    <color name="primary_500">#52B788</color>
+    <color name="primary_600">#40916C</color>
+    <color name="primary_700">#2E6A4F</color>
+    <color name="primary_800">#1B4332</color>
+    <color name="primary_900">#081C15</color>
+
+    <color name="secondary_100">#E3F2FD</color>
+    <color name="secondary_200">#BBDEFD</color>
+    <color name="secondary_300">#90CAF9</color>
+    <color name="secondary_400">#64B4F6</color>
+    <color name="secondary_500">#42A2F5</color>
+    <color name="secondary_600">#2196F3</color>
+    <color name="secondary_700">#1976D2</color>
+    <color name="secondary_800">#1565C0</color>
+    <color name="secondary_900">#0D47A1</color>
+
+
+    <color name="gray_100">#F8F9FA</color>
+    <color name="gray_200">#E9ECEF</color>
+    <color name="gray_300">#DEE2EE</color>
+    <color name="gray_400">#CED4DA</color>
+    <color name="gray_500">#ADB5BD</color>
+    <color name="gray_600">#6C757D</color>
+    <color name="gray_700">#495057</color>
+    <color name="gray_800">#343A40</color>
+    <color name="gray_900">#212529</color>
+
+    <color name="error_100">#F6CACC</color>
+    <color name="error_200">#F1A7A9</color>
+    <color name="error_300">#EC8385</color>
+    <color name="error_400">#E66063</color>
+    <color name="error_500">#E35053</color>
+    <color name="error_600">#DD2C2F</color>
+    <color name="error_700">#D02224</color>
+    <color name="error_800">#BD1F21</color>
+    <color name="error_900">#AC1C1E</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

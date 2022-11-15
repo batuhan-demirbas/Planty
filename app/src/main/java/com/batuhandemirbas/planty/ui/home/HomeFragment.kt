@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 
@@ -24,10 +22,24 @@ class HomeFragment : Fragment() {
 
         val viewModel: HomeViewModel by viewModels()
 
+        viewModel.getUserPlantsData()
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     // Update UI elements
+
+                    with(binding) {
+                        val userPlant = it.userPlant
+
+                        temperature.text = userPlant?.temperature.toString()
+                        humidity.text = userPlant?.humidity.toString()
+                        moisture.text = userPlant?.water?.get("moisture")
+
+                        waterLevel.text = it.userPlant?.water?.get("level")
+
+                    }
+
                 }
             }
         }

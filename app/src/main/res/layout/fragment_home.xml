@@ -1,13 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="-32dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <TextView
-        android:id="@+id/text"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/headerbackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="home" />
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <View
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/white" />
+
+        <TextView
+            style="@style/TextAppearance.Heading.MobileH1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Nergia"
+            android:textColor="@color/gray_800" />
+
+        <TextView
+            style="@style/TextAppearance.Body.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Ficus Bonsai"
+            android:textColor="@color/gray_800" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/sleepy_face" />
+
+            <TextView
+                style="@style/TextAppearance.Heading.MobileSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="I feel thirsty"
+                android:textColor="@color/error_400" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/data_mid_background"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/infoLayout">
+
+        <TextView
+            android:id="@+id/humidity"
+            style="@style/TextAppearance.Heading.TitleMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="35" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/data_right_background"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout">
+
+        <TextView
+            android:id="@+id/moisture"
+            style="@style/TextAppearance.Heading.TitleMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="35" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/data_left_background"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/temperature"
+            style="@style/TextAppearance.Heading.TitleMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="35" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/waterLevelBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="46dp"
+        android:background="@drawable/waterlevelbackground"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="32sp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/waterLevelBackground"
+        app:layout_constraintStart_toStartOf="@id/waterLevelBackground">
+
+        <TextView
+            style="@style/TextAppearance.Heading.MobileH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="ml"
+            android:textColor="@color/gray_800" />
+
+        <TextView
+            android:id="@+id/waterLevel"
+            style="@style/TextAppearance.Heading.TitleMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="null"
+            android:textColor="@color/gray_800" />
+
+        <TextView
+            style="@style/TextAppearance.Body.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="water tank"
+            android:textColor="@color/gray_800" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="36dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/waterLevelBackground"
+        app:layout_constraintEnd_toEndOf="@id/waterLevelBackground">
+
+        <TextView
+            android:id="@+id/nextWateringText"
+            style="@style/TextAppearance.Body.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next Watering" />
+
+        <TextView
+            android:id="@+id/dateText"
+            style="@style/TextAppearance.Heading.MobileH1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOMORROW" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
