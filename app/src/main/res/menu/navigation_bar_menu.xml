@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home_filled"
+        android:title=""/>
+
+    <item
+        android:id="@+id/statistic"
+        android:icon="@drawable/ic_statistic"
+        android:title=""/>
+
+    <item
+        android:id="@+id/water"
+        android:title=""/>
+
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_notification"
+        android:title=""/>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title=""/>
+
+</menu>

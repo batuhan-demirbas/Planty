@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_marginTop="64dp"
+    android:layout_marginHorizontal="24dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="statistic" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <TextView
+            style="@style/TextAppearance.Body.Big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Water Level"/>
+
+        <TextView
+            style="@style/TextAppearance.Heading.Pretitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="This Week"
+            android:textColor="@color/secondary_400"/>
+
+    </LinearLayout>
+
+
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center_horizontal" />
+
+
+
+</LinearLayout>

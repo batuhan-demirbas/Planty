@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="FabShapeOverlay" parent="ShapeAppearance.MaterialComponents.SmallComponent">
 
+        <item name="cornerSize">16dp</item>
+        <item name="cornerFamily">rounded</item>
+
+    </style>
+
+    <style name="ImageBackgroundShapeOverlay" parent="ShapeAppearanceOverlay.Material3.Corner.Top">
+
+        <item name="cornerSize">20dp</item>
+        <item name="cornerFamily">rounded</item>
+
+    </style>
+    
 </resources>

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 
@@ -37,6 +38,16 @@ class HomeFragment : Fragment() {
                         moisture.text = userPlant?.water?.get("moisture")
 
                         waterLevel.text = it.userPlant?.water?.get("level")
+
+                        when(userPlant?.water?.get("level")?.toInt()) {
+
+                            in 750 .. 1000 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_100))
+                            in 500 .. 749 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_75))
+                            in 250 .. 499 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_50))
+                            in 1 .. 249 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_25))
+                            0 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_0))
+
+                        }
 
                     }
 

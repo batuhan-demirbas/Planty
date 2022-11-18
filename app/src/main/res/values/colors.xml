@@ -43,4 +43,7 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gradientStart">#3786CE</color>
+    <color name="gradientEnd">#003786CE</color>
 </resources>
