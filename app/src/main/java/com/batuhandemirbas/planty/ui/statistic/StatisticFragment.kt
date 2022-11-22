@@ -1,19 +1,19 @@
 package com.batuhandemirbas.planty.ui.statistic
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.databinding.FragmentStatisticBinding
-import com.batuhandemirbas.planty.ui.home.HomeViewModel
-import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -23,6 +23,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
 
 private var _binding: FragmentStatisticBinding? = null
+
 private val binding get() = _binding!!
 
 class StatisticFragment : Fragment() {
@@ -55,10 +56,9 @@ class StatisticFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val lineEntry = arrayListOf<Entry>()
-        val weekdayModel = arrayOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        val moistureEntry = arrayListOf<Entry>()
 
-        with(lineEntry) {
+        with(moistureEntry) {
             add(Entry(0f, 20f))
             add(Entry(1f, 24f))
             add(Entry(2f, 22f))
@@ -68,27 +68,77 @@ class StatisticFragment : Fragment() {
             add(Entry(6f, 26f))
         }
 
-        val lineDataSet = LineDataSet(lineEntry, "")
-        lineDataSet.setValueTextColors(mutableListOf(Color.TRANSPARENT))
-        lineDataSet.setColor(R.color.secondary_400)
-        lineDataSet.setCircleColor(Color.BLUE)
-        lineDataSet.lineWidth = 3f
-        lineDataSet.circleRadius = 5f
+        applyChartSetting(
+            binding.moistureChart,
+            moistureEntry,
+            ContextCompat.getColor(requireContext(), R.color.secondary_400),
+            ContextCompat.getColor(requireContext(), R.color.secondary_400),
+            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_blue)
+        )
 
-        val lineData = LineData(lineDataSet)
-        binding.lineChart.data = lineData
-        binding.lineChart.description.isEnabled = false
-        binding.lineChart.getAxis(YAxis.AxisDependency.RIGHT).isEnabled = false
-        binding.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(weekdayModel)
-        binding.lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        binding.lineChart.xAxis.setDrawGridLines(false)
+        applyChartSetting(
+            binding.humidityChart,
+            moistureEntry,
+            ContextCompat.getColor(requireContext(), R.color.primary_400),
+            ContextCompat.getColor(requireContext(), R.color.primary_400),
+            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_green)
+        )
 
+        applyChartSetting(
+            binding.temperatureChart,
+            moistureEntry,
+            ContextCompat.getColor(requireContext(), R.color.purple),
+            ContextCompat.getColor(requireContext(), R.color.purple),
+            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_purple)
+
+        )
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun applyChartSetting(
+        chart: com.github.mikephil.charting.charts.LineChart,
+        lineEntry: ArrayList<Entry>,
+        lineColor: Int,
+        holeColor: Int,
+        gradient: Drawable?
+
+    ) {
+        val lineDataSet = LineDataSet(lineEntry, "")
+        val lineData = LineData(lineDataSet)
+        val weekdayModel = arrayOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+        with(chart) {
+            isDragEnabled = false
+            isScaleYEnabled = false
+            isScaleXEnabled = false
+            setTouchEnabled(false)
+            data = lineData
+            description.isEnabled = false
+            getAxis(YAxis.AxisDependency.RIGHT).isEnabled = false
+            xAxis.valueFormatter = IndexAxisValueFormatter(weekdayModel)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+
+        }
+
+        with(lineDataSet) {
+            setValueTextColors(mutableListOf(Color.TRANSPARENT))
+            color = lineColor
+            setCircleColor(ContextCompat.getColor(requireContext(), R.color.white))
+            lineWidth = 1f
+            circleHoleColor = holeColor
+            circleRadius = 5f
+            circleHoleRadius = 3f
+            fillDrawable = gradient
+            setDrawFilled(true)
+            lineWidth = 3f
+        }
+
     }
 
 }

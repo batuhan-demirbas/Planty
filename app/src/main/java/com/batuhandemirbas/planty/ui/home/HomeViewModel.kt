@@ -5,6 +5,7 @@ import com.batuhandemirbas.planty.domain.model.UserPlant
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,8 +27,8 @@ class HomeViewModel : ViewModel() {
     fun getUserPlantsData() {
         val userPlantsRef = db.collection("myPlants").document("yUbAs0EsHfRu0ZJTRvaI")
 
-        userPlantsRef.get().addOnSuccessListener { documentSnapshot ->
-            val userPlant = documentSnapshot.toObject<UserPlant>()
+        userPlantsRef.addSnapshotListener {  documentSnapshot, error ->
+            val userPlant = documentSnapshot?.toObject<UserPlant>()
 
             _uiState.update { currentState ->
 

@@ -30,8 +30,11 @@ class HomeFragment : Fragment() {
                 viewModel.uiState.collect {
                     // Update UI elements
 
+                    val userPlant = it.userPlant
+
                     with(binding) {
-                        val userPlant = it.userPlant
+                        name.text = userPlant?.name
+                        type.text = userPlant?.type
 
                         temperature.text = userPlant?.temperature.toString()
                         humidity.text = userPlant?.humidity.toString()
@@ -49,6 +52,20 @@ class HomeFragment : Fragment() {
 
                         }
 
+                    }
+
+                    if(userPlant?.water?.get("moisture")?.toInt() ?: 0 <= 64) {
+                        with(binding) {
+                            happy.visibility = View.GONE
+                            thirsty.visibility = View.VISIBLE
+
+                        }
+
+                    } else {
+                        with(binding) {
+                            happy.visibility = View.VISIBLE
+                            thirsty.visibility = View.GONE
+                        }
                     }
 
                 }

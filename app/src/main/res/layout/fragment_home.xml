@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteX="-32dp"
-    tools:layout_editor_absoluteY="0dp">
+   >
 
     <ImageView
         android:layout_width="match_parent"
@@ -16,61 +15,89 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/infoButton"
+        style="@style/Theme.Planty.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        app:icon="@drawable/ic_info"
+        android:outlineSpotShadowColor="#ffffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/logo"
+        app:layout_constraintBottom_toBottomOf="@id/logo"/>
+
     <LinearLayout
         android:id="@+id/infoLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/logo">
 
         <androidx.cardview.widget.CardView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:background="@color/white"
+            android:outlineSpotShadowColor="#00ffffff"
             app:cardCornerRadius="20dp"
-            app:cardElevation="0dp">
+            app:cardElevation="50dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="196dp"
-                android:layout_height="196dp"
+                android:layout_width="185dp"
+                android:layout_height="185dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ficus" />
+                android:background="@color/white"
+                android:src="@drawable/ficus"
+                app:shapeAppearance="@style/CornerCut" />
 
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/name"
             style="@style/TextAppearance.Heading.MobileH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="Nergia"
+            android:text="Name"
             android:textColor="@color/gray_800" />
 
         <TextView
+            android:id="@+id/type"
             style="@style/TextAppearance.Body.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
-            android:text="Ficus Bonsai"
+            android:text="Type"
             android:textColor="@color/gray_800" />
 
         <LinearLayout
+            android:id="@+id/thirsty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:background="@drawable/background_radius20">
+            android:background="@drawable/background_thirsty"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/sleepy_face" />
+                android:src="@drawable/ic_thirsty" />
 
             <TextView
                 style="@style/TextAppearance.Heading.MobileSubtitle"
@@ -82,6 +109,31 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/happy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_happy"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_happy" />
+
+            <TextView
+                style="@style/TextAppearance.Heading.MobileSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="I feel happy"
+                android:textColor="@color/primary_500" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +141,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/data_mid_background"
         android:gravity="center_horizontal"
@@ -105,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="35"
+            android:text="null"
             android:textColor="@color/gray_800"
             app:layout_constraintBottom_toTopOf="@id/text3"
             app:layout_constraintEnd_toEndOf="@id/text3"
@@ -155,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="35"
+            android:text="null"
             android:textColor="@color/gray_800"
             app:layout_constraintBottom_toTopOf="@id/text2"
             app:layout_constraintEnd_toEndOf="@id/text2"
@@ -214,7 +266,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="35"
+            android:text="null"
             android:textColor="@color/gray_800"
             app:layout_constraintBottom_toTopOf="@id/text"
             app:layout_constraintEnd_toEndOf="@id/text"
@@ -247,7 +299,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_marginStart="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="26dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@id/waterLevelBackground"
@@ -257,8 +309,8 @@
             android:id="@+id/tankLevelImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/tank_level_0"/>
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/tank_level_0" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -299,15 +351,15 @@
                 android:text="water tank"
                 android:textColor="@color/gray_800" />
 
-            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="36dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/waterLevelBackground"

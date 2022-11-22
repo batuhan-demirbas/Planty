@@ -46,4 +46,6 @@
 
     <color name="gradientStart">#3786CE</color>
     <color name="gradientEnd">#003786CE</color>
+
+    <color name="purple">#E0AAFF</color>
 </resources>
