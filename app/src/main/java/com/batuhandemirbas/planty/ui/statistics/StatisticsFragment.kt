@@ -1,4 +1,4 @@
-package com.batuhandemirbas.planty.ui.statistic
+package com.batuhandemirbas.planty.ui.statistics
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -13,7 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
-import com.batuhandemirbas.planty.databinding.FragmentStatisticBinding
+import com.batuhandemirbas.planty.databinding.FragmentStatisticsBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -22,16 +22,16 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
 
-private var _binding: FragmentStatisticBinding? = null
+private var _binding: FragmentStatisticsBinding? = null
 
 private val binding get() = _binding!!
 
-class StatisticFragment : Fragment() {
+class StatisticsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: StatisticViewModel by viewModels()
+        val viewModel: StatisticsViewModel by viewModels()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -48,7 +48,7 @@ class StatisticFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStatisticBinding.inflate(inflater, container, false)
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }

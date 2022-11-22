@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
                 navController.currentDestination?.let { navDestination ->
 
                     val isOnOtherTabs = navDestination.id in setOf(
-                        R.id.statisticFragment,
+                        R.id.statisticsFragment,
                         R.id.notificationFragment,
-                        R.id.settingFragment
+                        R.id.settingsFragment
                     )
 
                     if (R.id.homeFragment == navDestination.id) {
@@ -62,9 +62,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.statistic -> {
-                    navController.navigate(R.id.action_global_statisticFragment)
-                    it.setIcon(resources.getDrawable(R.drawable.statistic_filled))
+                R.id.statistics -> {
+                    navController.navigate(R.id.action_global_statisticsFragment)
+                    it.icon = resources.getDrawable(R.drawable.ic_statistic_filled)
                     true
                 }
 
@@ -74,8 +74,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.settings -> {
-                    navController.navigate(R.id.action_global_settingFragment)
-                    it.icon = resources.getDrawable(R.drawable.settings_filled)
+                    navController.navigate(R.id.action_global_settingsFragment)
+                    it.icon = resources.getDrawable(R.drawable.ic_settings_filled)
                     true
                 }
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.databinding.FragmentHomeBinding
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
 private var _binding: FragmentHomeBinding? = null
@@ -31,6 +32,8 @@ class HomeFragment : Fragment() {
                     // Update UI elements
 
                     val userPlant = it.userPlant
+
+                    Glide.with(requireContext()).load("${userPlant?.image}").into(binding.image)
 
                     with(binding) {
                         name.text = userPlant?.name

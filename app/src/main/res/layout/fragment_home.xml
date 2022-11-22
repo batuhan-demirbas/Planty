@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/headerbackground"
+        android:src="@drawable/background_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +55,7 @@
             app:cardElevation="50dp">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image"
                 android:layout_width="185dp"
                 android:layout_height="185dp"
                 android:layout_gravity="center"

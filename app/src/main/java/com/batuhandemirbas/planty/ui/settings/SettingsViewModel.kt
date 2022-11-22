@@ -1,9 +1,7 @@
-package com.batuhandemirbas.planty.ui.setting
+package com.batuhandemirbas.planty.ui.settings
 
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.domain.model.UserPlant
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -19,7 +17,7 @@ data class SettingUiState(
 
 )
 
-class SettingViewModel : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
     // Expose screen UI state
     private val _uiState = MutableStateFlow(SettingUiState())

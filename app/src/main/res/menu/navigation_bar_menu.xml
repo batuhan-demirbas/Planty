@@ -7,7 +7,7 @@
         android:title=""/>
 
     <item
-        android:id="@+id/statistic"
+        android:id="@+id/statistics"
         android:icon="@drawable/ic_statistic"
         android:title=""/>
 

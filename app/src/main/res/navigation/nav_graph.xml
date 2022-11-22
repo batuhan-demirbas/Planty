@@ -12,40 +12,40 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_statisticFragment"
-            app:destination="@id/statisticFragment"
+            app:destination="@id/statisticsFragment"
             app:launchSingleTop="true"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
+            app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/statisticFragment"
-        android:name="com.batuhandemirbas.planty.ui.statistic.StatisticFragment"
+        android:id="@+id/statisticsFragment"
+        android:name="com.batuhandemirbas.planty.ui.statistics.StatisticsFragment"
         android:label="fragment_statistic"
-        tools:layout="@layout/fragment_statistic" />
+        tools:layout="@layout/fragment_statistics" />
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.batuhandemirbas.planty.ui.setting.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        android:id="@+id/settingsFragment"
+        android:name="com.batuhandemirbas.planty.ui.settings.SettingFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.batuhandemirbas.planty.ui.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification" />
     <action
-        android:id="@+id/action_global_statisticFragment"
-        app:destination="@id/statisticFragment" />
+        android:id="@+id/action_global_statisticsFragment"
+        app:destination="@id/statisticsFragment" />
     <action
         android:id="@+id/action_global_notificationFragment"
         app:destination="@id/notificationFragment" />
     <action
-        android:id="@+id/action_global_settingFragment"
-        app:destination="@id/settingFragment" />
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment" />
     <action
         android:id="@+id/action_global_homeFragment"
         app:destination="@id/homeFragment" />

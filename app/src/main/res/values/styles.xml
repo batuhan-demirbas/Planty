@@ -41,6 +41,19 @@
 
     </style>
 
+    <style name="Theme.Planty.IconButton.Filled" parent="Widget.Material3.Button.IconButton.Filled">
+
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="iconTint">@color/primary_400</item>
+        <item name="iconSize">24dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="backgroundTint">@color/primary_100</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
     <style name="Theme.Planty.TextButton" parent="Widget.Material3.Button.TextButton">
 
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
@@ -48,5 +61,9 @@
         <item name="android:textSize">14sp</item>
 
     </style>
+
+
+
+
 
 </resources>
