@@ -13,6 +13,8 @@ data class UserPlant(
 
     val type: String? = null,
 
-    val water: Map<String, String>? = null
+    val moisture: ArrayList<String>? = null,
+
+    val waterLevel: ArrayList<String>? = null
 
 )

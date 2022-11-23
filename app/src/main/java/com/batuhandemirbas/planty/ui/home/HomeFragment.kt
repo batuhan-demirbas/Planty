@@ -41,11 +41,11 @@ class HomeFragment : Fragment() {
 
                         temperature.text = userPlant?.temperature.toString()
                         humidity.text = userPlant?.humidity.toString()
-                        moisture.text = userPlant?.water?.get("moisture")
+                        moisture.text = userPlant?.moisture?.last()
 
-                        waterLevel.text = it.userPlant?.water?.get("level")
+                        waterLevel.text = it.userPlant?.waterLevel?.last()
 
-                        when(userPlant?.water?.get("level")?.toInt()) {
+                        when(userPlant?.waterLevel?.last()?.toInt()) {
 
                             in 750 .. 1000 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_100))
                             in 500 .. 749 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_75))
@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
 
                     }
 
-                    if(userPlant?.water?.get("moisture")?.toInt() ?: 0 <= 64) {
+                    if(userPlant?.moisture?.last()?.toInt() ?: 0 <= 64) {
                         with(binding) {
                             happy.visibility = View.GONE
                             thirsty.visibility = View.VISIBLE

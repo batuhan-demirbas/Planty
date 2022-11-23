@@ -26,6 +26,8 @@ private var _binding: FragmentStatisticsBinding? = null
 
 private val binding get() = _binding!!
 
+val moistureEntry = arrayListOf<Entry>()
+
 class StatisticsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +39,17 @@ class StatisticsFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     // Update UI elements
+
+                    val moistureArray = it.userPlant?.moisture
+
+
+
+
                 }
             }
         }
+
+        viewModel.getUserPlantsData()
 
     }
 
@@ -56,7 +66,6 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val moistureEntry = arrayListOf<Entry>()
 
         with(moistureEntry) {
             add(Entry(0f, 20f))
@@ -67,6 +76,9 @@ class StatisticsFragment : Fragment() {
             add(Entry(5f, 22f))
             add(Entry(6f, 26f))
         }
+
+
+
 
         applyChartSetting(
             binding.moistureChart,
