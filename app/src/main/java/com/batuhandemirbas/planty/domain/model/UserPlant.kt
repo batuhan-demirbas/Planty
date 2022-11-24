@@ -1,7 +1,7 @@
 package com.batuhandemirbas.planty.domain.model
 
 data class UserPlant(
-    val humidity: Int? = null,
+    val humidity: ArrayList<String>? = null,
 
     val image: String? = null,
 
@@ -9,12 +9,12 @@ data class UserPlant(
 
     val plant: String? = null,
 
-    val temperature: Int? = null,
+    val temperature: ArrayList<String>? = null,
 
     val type: String? = null,
 
     val moisture: ArrayList<String>? = null,
 
-    val waterLevel: ArrayList<String>? = null
+    val waterLevel: Int? = null
 
 )

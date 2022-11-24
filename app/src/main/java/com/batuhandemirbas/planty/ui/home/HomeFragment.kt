@@ -39,13 +39,13 @@ class HomeFragment : Fragment() {
                         name.text = userPlant?.name
                         type.text = userPlant?.type
 
-                        temperature.text = userPlant?.temperature.toString()
-                        humidity.text = userPlant?.humidity.toString()
+                        temperature.text = userPlant?.temperature?.last().toString()
+                        humidity.text = userPlant?.humidity?.last().toString()
                         moisture.text = userPlant?.moisture?.last()
 
-                        waterLevel.text = it.userPlant?.waterLevel?.last()
+                        waterLevel.text = it.userPlant?.waterLevel.toString()
 
-                        when(userPlant?.waterLevel?.last()?.toInt()) {
+                        when(userPlant?.waterLevel) {
 
                             in 750 .. 1000 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_100))
                             in 500 .. 749 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_75))

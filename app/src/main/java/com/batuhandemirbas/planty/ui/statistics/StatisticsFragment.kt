@@ -23,10 +23,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
 
 private var _binding: FragmentStatisticsBinding? = null
-
 private val binding get() = _binding!!
-
-val moistureEntry = arrayListOf<Entry>()
 
 class StatisticsFragment : Fragment() {
 
@@ -34,16 +31,49 @@ class StatisticsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val viewModel: StatisticsViewModel by viewModels()
+        var moistureEntry = arrayListOf<Entry>()
+        var temperatureEntry = arrayListOf<Entry>()
+        var humidityEntry = arrayListOf<Entry>()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     // Update UI elements
 
-                    val moistureArray = it.userPlant?.moisture
+                    val moistureArray = it.userPlant?.moisture ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val temperatureArray = it.userPlant?.temperature ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val humidityArray = it.userPlant?.humidity ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
 
+                    moistureEntry = applyChartData(moistureArray, moistureEntry)
+                    temperatureEntry = applyChartData(temperatureArray, temperatureEntry)
+                    humidityEntry = applyChartData(humidityArray, humidityEntry)
 
+                    applyChartSetting(
+                        binding.moistureChart,
+                        moistureEntry,
+                        ContextCompat.getColor(requireContext(), R.color.secondary_400),
+                        ContextCompat.getColor(requireContext(), R.color.secondary_400),
+                        ContextCompat.getDrawable(requireContext(), R.drawable.gradient_blue)
 
+                    )
+
+                    applyChartSetting(
+                        binding.humidityChart,
+                        humidityEntry,
+                        ContextCompat.getColor(requireContext(), R.color.primary_400),
+                        ContextCompat.getColor(requireContext(), R.color.primary_400),
+                        ContextCompat.getDrawable(requireContext(), R.drawable.gradient_green)
+
+                    )
+
+                    applyChartSetting(
+                        binding.temperatureChart,
+                        temperatureEntry,
+                        ContextCompat.getColor(requireContext(), R.color.purple),
+                        ContextCompat.getColor(requireContext(), R.color.purple),
+                        ContextCompat.getDrawable(requireContext(), R.drawable.gradient_purple)
+
+                    )
 
                 }
             }
@@ -61,55 +91,13 @@ class StatisticsFragment : Fragment() {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        with(moistureEntry) {
-            add(Entry(0f, 20f))
-            add(Entry(1f, 24f))
-            add(Entry(2f, 22f))
-            add(Entry(3f, 28f))
-            add(Entry(4f, 24f))
-            add(Entry(5f, 22f))
-            add(Entry(6f, 26f))
-        }
-
-
-
-
-        applyChartSetting(
-            binding.moistureChart,
-            moistureEntry,
-            ContextCompat.getColor(requireContext(), R.color.secondary_400),
-            ContextCompat.getColor(requireContext(), R.color.secondary_400),
-            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_blue)
-        )
-
-        applyChartSetting(
-            binding.humidityChart,
-            moistureEntry,
-            ContextCompat.getColor(requireContext(), R.color.primary_400),
-            ContextCompat.getColor(requireContext(), R.color.primary_400),
-            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_green)
-        )
-
-        applyChartSetting(
-            binding.temperatureChart,
-            moistureEntry,
-            ContextCompat.getColor(requireContext(), R.color.purple),
-            ContextCompat.getColor(requireContext(), R.color.purple),
-            ContextCompat.getDrawable(requireContext(), R.drawable.gradient_purple)
-
-        )
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
     private fun applyChartSetting(
@@ -123,6 +111,8 @@ class StatisticsFragment : Fragment() {
         val lineDataSet = LineDataSet(lineEntry, "")
         val lineData = LineData(lineDataSet)
         val weekdayModel = arrayOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+        chart.clear()
 
         with(chart) {
             isDragEnabled = false
@@ -151,6 +141,19 @@ class StatisticsFragment : Fragment() {
             lineWidth = 3f
         }
 
+    }
+
+    private fun applyChartData(dataArray:  ArrayList<String>, chartEntry:  ArrayList<Entry>): ArrayList<Entry> {
+        val lastIndex = dataArray.lastIndex
+        var flag = 0f
+
+        chartEntry.clear()
+        for (i in lastIndex.minus(6)..lastIndex) {
+            chartEntry.add(Entry(flag, dataArray[i].toFloat()))
+            flag++
+        }
+
+        return chartEntry
     }
 
 }
