@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
 
                     }
 
-                    if(userPlant?.moisture?.last()?.toInt() ?: 0 <= 64) {
+                    if((userPlant?.moisture?.last()?.toInt() ?: 0) <= 64) {
                         with(binding) {
                             happy.visibility = View.GONE
                             thirsty.visibility = View.VISIBLE

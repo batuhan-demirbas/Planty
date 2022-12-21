@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Theme.Planty" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_300</item>
@@ -14,6 +15,5 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
-        <item name="android:forceDarkAllowed">false</item>
     </style>
 </resources>
