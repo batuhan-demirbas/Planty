@@ -1,8 +1,9 @@
 package com.batuhandemirbas.planty
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.batuhandemirbas.planty.databinding.ActivityMainBinding
@@ -58,24 +59,46 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
 
                 R.id.home -> {
-                    navController.navigate(R.id.action_global_homeFragment)
+                    if (navController.currentDestination?.id != R.id.homeFragment) {
+                        navController.navigate(R.id.action_global_homeFragment)
+                        it.icon =
+                            ResourcesCompat.getDrawable(resources, R.drawable.ic_home_filled, null)
+                    }
                     true
                 }
 
                 R.id.statistics -> {
-                    navController.navigate(R.id.action_global_statisticsFragment)
-                    it.icon = resources.getDrawable(R.drawable.ic_statistic_filled)
+                    if (navController.currentDestination?.id != R.id.statisticsFragment) {
+                        navController.navigate(R.id.action_global_statisticsFragment)
+                        it.icon = ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.ic_statistic_filled,
+                            null
+                        )
+                    }
+
                     true
                 }
 
                 R.id.notification -> {
-                    navController.navigate(R.id.action_global_notificationFragment)
+                    if (navController.currentDestination?.id != R.id.action_global_notificationFragment) {
+                        navController.navigate(R.id.action_global_notificationFragment)
+                        it.icon =
+                            ResourcesCompat.getDrawable(resources, R.drawable.ic_notification_filled, null)
+                    }
                     true
                 }
 
                 R.id.settings -> {
-                    navController.navigate(R.id.action_global_settingsFragment)
-                    it.icon = resources.getDrawable(R.drawable.ic_settings_filled)
+                    if (navController.currentDestination?.id != R.id.settingsFragment) {
+                        navController.navigate(R.id.settingsFragment)
+                        it.icon = ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.ic_settings_filled,
+                            null
+                        )
+                    }
+
                     true
                 }
 

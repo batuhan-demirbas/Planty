@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
 import com.batuhandemirbas.planty.databinding.FragmentHomeBinding
+import com.batuhandemirbas.planty.ui.info.InfoBottomSheetFragment
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
@@ -85,6 +86,17 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val infoButtomSheet = InfoBottomSheetFragment()
+
+        binding.infoButton.setOnClickListener {
+            infoButtomSheet.show(parentFragmentManager, "InfoBottomSheetFragment")
+        }
+
     }
 
     override fun onDestroyView() {

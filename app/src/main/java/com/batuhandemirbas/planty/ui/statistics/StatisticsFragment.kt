@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.Calendar
 
 private var _binding: FragmentStatisticsBinding? = null
 private val binding get() = _binding!!
@@ -110,7 +112,16 @@ class StatisticsFragment : Fragment() {
     ) {
         val lineDataSet = LineDataSet(lineEntry, "")
         val lineData = LineData(lineDataSet)
-        val weekdayModel = arrayOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        val weekdayModel: ArrayList<String> = arrayListOf()
+
+        var currentDate = LocalDate.now().dayOfWeek
+
+        for (i in 0..6) {
+            currentDate = currentDate.minus(1)
+            weekdayModel.add(currentDate.getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault()))
+        }
+
+        weekdayModel.reverse()
 
         chart.clear()
 
