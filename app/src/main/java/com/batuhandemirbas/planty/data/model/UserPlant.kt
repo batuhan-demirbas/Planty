@@ -1,4 +1,4 @@
-package com.batuhandemirbas.planty.domain.model
+package com.batuhandemirbas.planty.data.model
 
 data class UserPlant(
     val humidity: ArrayList<String>? = null,

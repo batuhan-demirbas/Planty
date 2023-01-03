@@ -2,7 +2,7 @@ package com.batuhandemirbas.planty.ui.settings
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.batuhandemirbas.planty.domain.model.UserPlant
+import com.batuhandemirbas.planty.data.model.UserPlant
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

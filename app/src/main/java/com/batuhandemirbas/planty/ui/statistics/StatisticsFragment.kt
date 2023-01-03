@@ -3,16 +3,18 @@ package com.batuhandemirbas.planty.ui.statistics
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
+import com.batuhandemirbas.planty.data.model.Feeds
+import com.batuhandemirbas.planty.data.model.PlantData
 import com.batuhandemirbas.planty.databinding.FragmentStatisticsBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -21,8 +23,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
+import java.text.DateFormat
 import java.time.LocalDate
-import java.util.Calendar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 private var _binding: FragmentStatisticsBinding? = null
 private val binding get() = _binding!!
@@ -37,14 +41,34 @@ class StatisticsFragment : Fragment() {
         var temperatureEntry = arrayListOf<Entry>()
         var humidityEntry = arrayListOf<Entry>()
 
+        val thisWeek : ArrayList<LocalDate> = arrayListOf()
+        val thisWeekData : ArrayList<PlantData> = arrayListOf()
+
+        for (i in 0..6) {
+            val date = LocalDate.now().minusDays(i.toLong())
+            thisWeek.add(date)
+        }
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
+                viewModel.uiState.collect { it ->
                     // Update UI elements
 
-                    val moistureArray = it.userPlant?.moisture ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
-                    val temperatureArray = it.userPlant?.temperature ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
-                    val humidityArray = it.userPlant?.humidity ?: arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val data = it.plantyData?.feeds
+
+                    it.plantyData?.feeds?.forEach { plantData ->
+                        val date = plantData.created_at.split("T")[0]
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val localDate = LocalDate.parse(date, formatter)
+                        if (thisWeek.contains(localDate)) {
+                            thisWeekData.add(plantData)
+                        }
+                    }
+
+                    //val moistureArray = it.plantyData?.feeds ?:
+                    val moistureArray: ArrayList<String> = arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val temperatureArray = arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val humidityArray =  arrayListOf("10", "10", "10", "10", "10", "10", "10")
 
                     moistureEntry = applyChartData(moistureArray, moistureEntry)
                     temperatureEntry = applyChartData(temperatureArray, temperatureEntry)
@@ -81,7 +105,7 @@ class StatisticsFragment : Fragment() {
             }
         }
 
-        viewModel.getUserPlantsData()
+        viewModel.getPlantyData(requireActivity())
 
     }
 
@@ -118,7 +142,12 @@ class StatisticsFragment : Fragment() {
 
         for (i in 0..6) {
             currentDate = currentDate.minus(1)
-            weekdayModel.add(currentDate.getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault()))
+            weekdayModel.add(
+                currentDate.getDisplayName(
+                    java.time.format.TextStyle.SHORT,
+                    java.util.Locale.getDefault()
+                )
+            )
         }
 
         weekdayModel.reverse()
@@ -154,7 +183,10 @@ class StatisticsFragment : Fragment() {
 
     }
 
-    private fun applyChartData(dataArray:  ArrayList<String>, chartEntry:  ArrayList<Entry>): ArrayList<Entry> {
+    private fun applyChartData(
+        dataArray: ArrayList<String>,
+        chartEntry: ArrayList<Entry>
+    ): ArrayList<Entry> {
         val lastIndex = dataArray.lastIndex
         var flag = 0f
 

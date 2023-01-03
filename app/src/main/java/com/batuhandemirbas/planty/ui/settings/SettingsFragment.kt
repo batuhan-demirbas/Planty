@@ -6,9 +6,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -75,7 +73,7 @@ class SettingFragment : Fragment() {
 
 
 
-        binding.textButton.setOnClickListener {
+        binding.buttonDone.setOnClickListener {
 
             val nameEditText = binding.nameEditText
             val typeEditText = binding.typeEditText
@@ -116,7 +114,6 @@ class SettingFragment : Fragment() {
                 startActivityForResult(intent, 2)
             }
 
-
         }
 
 
@@ -130,13 +127,6 @@ class SettingFragment : Fragment() {
     private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
-
-    /*
-    fun Activity.hideKeyboard() {
-        hideKeyboard(currentFocus ?: View(this))
-    }
-
-     */
 
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =

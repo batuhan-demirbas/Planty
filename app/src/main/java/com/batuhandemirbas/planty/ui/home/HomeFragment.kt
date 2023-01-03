@@ -1,18 +1,20 @@
 package com.batuhandemirbas.planty.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
+import com.batuhandemirbas.planty.data.model.Feeds
 import com.batuhandemirbas.planty.databinding.FragmentHomeBinding
 import com.batuhandemirbas.planty.ui.info.InfoBottomSheetFragment
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 private var _binding: FragmentHomeBinding? = null
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
         val viewModel: HomeViewModel by viewModels()
 
         viewModel.getUserPlantsData()
+        viewModel.getPlantyLastData(requireActivity())
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -34,31 +37,49 @@ class HomeFragment : Fragment() {
 
                     val userPlant = it.userPlant
 
+                    val plantyData = Gson().fromJson(it.plantyData, Feeds::class.java)
+
                     Glide.with(requireContext()).load("${userPlant?.image}").into(binding.image)
 
                     with(binding) {
                         name.text = userPlant?.name
                         type.text = userPlant?.type
 
-                        temperature.text = userPlant?.temperature?.last().toString()
-                        humidity.text = userPlant?.humidity?.last().toString()
-                        moisture.text = userPlant?.moisture?.last()
+                        temperature.text = plantyData?.feeds?.last()?.field4
+                        humidity.text = plantyData?.feeds?.last()?.field3
+                        moisture.text = plantyData?.feeds?.last()?.field2
 
                         waterLevel.text = it.userPlant?.waterLevel.toString()
 
-                        when(userPlant?.waterLevel) {
+                        when (plantyData?.feeds?.last()?.field1?.toInt()) {
 
-                            in 750 .. 1000 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_100))
-                            in 500 .. 749 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_75))
-                            in 250 .. 499 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_50))
-                            in 1 .. 249 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_25))
-                            0 -> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_0))
+                            in 480..600 -> binding.tankLevelImage.setImageDrawable(
+                                resources.getDrawable(
+                                    R.drawable.tank_level_100
+                                )
+                            )
+                            in 401..479 -> binding.tankLevelImage.setImageDrawable(
+                                resources.getDrawable(
+                                    R.drawable.tank_level_75
+                                )
+                            )
+                            in 301..401 -> binding.tankLevelImage.setImageDrawable(
+                                resources.getDrawable(
+                                    R.drawable.tank_level_50
+                                )
+                            )
+                            in 201..300 -> binding.tankLevelImage.setImageDrawable(
+                                resources.getDrawable(
+                                    R.drawable.tank_level_25
+                                )
+                            )
+                            in 0 .. 200-> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_0))
 
                         }
 
                     }
 
-                    if((userPlant?.moisture?.last()?.toInt() ?: 0) <= 64) {
+                    if ((userPlant?.moisture?.last()?.toInt() ?: 0) <= 64) {
                         with(binding) {
                             happy.visibility = View.GONE
                             thirsty.visibility = View.VISIBLE
@@ -92,6 +113,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val infoButtomSheet = InfoBottomSheetFragment()
+
 
         binding.infoButton.setOnClickListener {
             infoButtomSheet.show(parentFragmentManager, "InfoBottomSheetFragment")
