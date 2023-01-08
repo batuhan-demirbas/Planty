@@ -1,7 +1,7 @@
 package com.batuhandemirbas.planty.ui.info
 
 import androidx.lifecycle.ViewModel
-import com.batuhandemirbas.planty.domain.model.Plant
+import com.batuhandemirbas.planty.data.model.Plant
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -27,7 +27,7 @@ class InfoBottomSheetViewModel : ViewModel() {
     fun getPlantData() {
         val plantRef = db.collection("plants").document("bonsai")
 
-        plantRef.addSnapshotListener {  documentSnapshot, error ->
+        plantRef.addSnapshotListener { documentSnapshot, _ ->
             val plant = documentSnapshot?.toObject<Plant>()
 
             _uiState.update { currentState ->
@@ -42,11 +42,11 @@ class InfoBottomSheetViewModel : ViewModel() {
 
     // how many days has it been since the plant was planted
     fun getPlantAge(platingDate: String): String {
-        val date = platingDate
         val now = LocalDate.now()
 
         // number of days between 2 current dates
-        val days = now.toEpochDay() - LocalDate.parse(date, DateTimeFormatter.ISO_DATE).toEpochDay()
+        val days =
+            now.toEpochDay() - LocalDate.parse(platingDate, DateTimeFormatter.ISO_DATE).toEpochDay()
 
         return "$days days"
     }

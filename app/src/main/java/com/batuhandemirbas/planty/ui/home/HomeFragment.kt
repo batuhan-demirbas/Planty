@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
 
         val viewModel: HomeViewModel by viewModels()
 
-        viewModel.getUserPlantsData()
+        viewModel.getPlantData()
         viewModel.getPlantyLastData(requireActivity())
 
         lifecycleScope.launch {
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
 
                     val plantyData = Gson().fromJson(it.plantyData, Feeds::class.java)
 
-                    Glide.with(requireContext()).load("${userPlant?.image}").into(binding.image)
+                    Glide.with(requireContext()).load("${userPlant?.photo}").into(binding.image)
 
                     with(binding) {
                         name.text = userPlant?.name
@@ -49,37 +50,53 @@ class HomeFragment : Fragment() {
                         humidity.text = plantyData?.feeds?.last()?.field3
                         moisture.text = plantyData?.feeds?.last()?.field2
 
-                        waterLevel.text = it.userPlant?.waterLevel.toString()
+                        val waterMl = plantyData?.feeds?.last()?.field1?.toInt()?.div(3)?.toInt()
 
-                        when (plantyData?.feeds?.last()?.field1?.toInt()) {
+                        waterLevel.text = waterMl.toString()
 
-                            in 480..600 -> binding.tankLevelImage.setImageDrawable(
-                                resources.getDrawable(
-                                    R.drawable.tank_level_100
+                        when (waterMl) {
+
+                            in 120..200 -> binding.tankLevelImage.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.tank_level_100,
+                                    null
                                 )
                             )
-                            in 401..479 -> binding.tankLevelImage.setImageDrawable(
-                                resources.getDrawable(
-                                    R.drawable.tank_level_75
+                            in 81..119 -> binding.tankLevelImage.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.tank_level_75,
+                                    null
                                 )
                             )
-                            in 301..401 -> binding.tankLevelImage.setImageDrawable(
-                                resources.getDrawable(
-                                    R.drawable.tank_level_50
+                            in 51..80 -> binding.tankLevelImage.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.tank_level_50,
+                                    null
                                 )
                             )
-                            in 201..300 -> binding.tankLevelImage.setImageDrawable(
-                                resources.getDrawable(
-                                    R.drawable.tank_level_25
+                            in 26..50 -> binding.tankLevelImage.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.tank_level_25,
+                                    null
                                 )
                             )
-                            in 0 .. 200-> binding.tankLevelImage.setImageDrawable(resources.getDrawable(R.drawable.tank_level_0))
+                            in 0..25 -> binding.tankLevelImage.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.tank_level_0,
+                                    null
+                                )
+                            )
 
                         }
 
                     }
 
-                    if ((userPlant?.moisture?.last()?.toInt() ?: 0) <= 64) {
+                    if ((plantyData?.feeds?.last()?.field2?.toInt() ?: 0) <= 40) {
                         with(binding) {
                             happy.visibility = View.GONE
                             thirsty.visibility = View.VISIBLE
@@ -103,10 +120,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

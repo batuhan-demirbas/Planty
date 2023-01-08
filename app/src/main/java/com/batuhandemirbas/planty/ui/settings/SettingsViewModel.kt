@@ -2,7 +2,7 @@ package com.batuhandemirbas.planty.ui.settings
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.batuhandemirbas.planty.data.model.UserPlant
+import com.batuhandemirbas.planty.data.model.Plant
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class SettingUiState(
-    var userPlant: UserPlant? = null
+    var userPlant: Plant? = null
 
 )
 
@@ -26,10 +26,10 @@ class SettingsViewModel : ViewModel() {
     private val db = Firebase.firestore
 
     fun getUserPlantsData() {
-        val userPlantsRef = db.collection("myPlants").document("yUbAs0EsHfRu0ZJTRvaI")
+        val userPlantsRef = db.collection("plants").document("bonsai")
 
-        userPlantsRef.addSnapshotListener { documentSnapshot, error ->
-            val userPlant = documentSnapshot?.toObject<UserPlant>()
+        userPlantsRef.addSnapshotListener { documentSnapshot, _ ->
+            val userPlant = documentSnapshot?.toObject<Plant>()
 
             _uiState.update { currentState ->
 
@@ -42,7 +42,7 @@ class SettingsViewModel : ViewModel() {
     }
 
     fun updateUserPlantsData(view: View, name: String, type: String) {
-        val userPlantsRef = db.collection("myPlants").document("yUbAs0EsHfRu0ZJTRvaI")
+        val userPlantsRef = db.collection("plants").document("bonsai")
 
         val changeList = mapOf(
             "name" to name,

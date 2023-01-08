@@ -40,7 +40,7 @@ open class RetrofitCallback<T>(context: Context, callback: Callback<T>) : Callba
             Toast.makeText(
                 mContext,
                 response.errorBody()
-                    .toString() + response.code(), //mContext.getString(R.string.hata_olustu_lutfen_tekrar_deneyiniz) + response.code(),
+                    .toString() + response.code() + "callback", //mContext.getString(R.string.hata_olustu_lutfen_tekrar_deneyiniz) + response.code(),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -50,7 +50,7 @@ open class RetrofitCallback<T>(context: Context, callback: Callback<T>) : Callba
         println("error")
         println(t.message)
         if (!Util().checkInternet(mContext)) {
-            Toast.makeText(mContext, t.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(mContext, t.message + "callback failure", Toast.LENGTH_LONG).show()
             return
         }
         //Alert Here

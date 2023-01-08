@@ -13,8 +13,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.batuhandemirbas.planty.R
-import com.batuhandemirbas.planty.data.model.Feeds
-import com.batuhandemirbas.planty.data.model.PlantData
 import com.batuhandemirbas.planty.databinding.FragmentStatisticsBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -23,10 +21,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
-import java.text.DateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 private var _binding: FragmentStatisticsBinding? = null
 private val binding get() = _binding!!
@@ -41,8 +36,7 @@ class StatisticsFragment : Fragment() {
         var temperatureEntry = arrayListOf<Entry>()
         var humidityEntry = arrayListOf<Entry>()
 
-        val thisWeek : ArrayList<LocalDate> = arrayListOf()
-        val thisWeekData : ArrayList<PlantData> = arrayListOf()
+        val thisWeek: ArrayList<LocalDate> = arrayListOf()
 
         for (i in 0..6) {
             val date = LocalDate.now().minusDays(i.toLong())
@@ -51,24 +45,48 @@ class StatisticsFragment : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { it ->
+                viewModel.uiState.collect {
                     // Update UI elements
 
-                    val data = it.plantyData?.feeds
+                    val moistureArray: ArrayList<String> =
+                        arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val temperatureArray: ArrayList<String> =
+                        arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    val humidityArray: ArrayList<String> =
+                        arrayListOf("10", "10", "10", "10", "10", "10", "10")
 
-                    it.plantyData?.feeds?.forEach { plantData ->
-                        val date = plantData.created_at.split("T")[0]
-                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        val localDate = LocalDate.parse(date, formatter)
-                        if (thisWeek.contains(localDate)) {
-                            thisWeekData.add(plantData)
-                        }
+                    it.plantyData?.let {
+                        moistureArray.clear()
+                        temperatureArray.clear()
+                        humidityArray.clear()
                     }
 
-                    //val moistureArray = it.plantyData?.feeds ?:
-                    val moistureArray: ArrayList<String> = arrayListOf("10", "10", "10", "10", "10", "10", "10")
-                    val temperatureArray = arrayListOf("10", "10", "10", "10", "10", "10", "10")
-                    val humidityArray =  arrayListOf("10", "10", "10", "10", "10", "10", "10")
+                    it.plantyData?.feeds?.forEach { plantData ->
+
+                        moistureArray.add(plantData.field2)
+                        temperatureArray.add(plantData.field4)
+                        humidityArray.add(plantData.field3)
+
+                    }
+
+                    repeat(7) {
+                        if (moistureArray.size < 7) {
+                            moistureArray.add(0, "0")
+                        }
+
+                        if (humidityArray.size < 7) {
+                            humidityArray.add(0, "0")
+                        }
+
+                        if (temperatureArray.size < 7) {
+                            temperatureArray.add(0, "0")
+                        }
+
+                    }
+
+                    //moistureArray.reverse()
+                    //humidityArray.reverse()
+                    //temperatureArray.reverse()
 
                     moistureEntry = applyChartData(moistureArray, moistureEntry)
                     temperatureEntry = applyChartData(temperatureArray, temperatureEntry)
@@ -105,7 +123,11 @@ class StatisticsFragment : Fragment() {
             }
         }
 
-        viewModel.getPlantyData(requireActivity())
+        viewModel.getWeeklyAverageData(
+            requireActivity(),
+            LocalDate.now().minusDays(7).toString(),
+            LocalDate.now().toString()
+        )
 
     }
 
@@ -113,10 +135,9 @@ class StatisticsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
 
     }
 

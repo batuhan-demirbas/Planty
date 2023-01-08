@@ -1,11 +1,12 @@
 package com.batuhandemirbas.planty.ui.home
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.batuhandemirbas.planty.data.model.Plant
 import com.batuhandemirbas.planty.data.remote.RetrofitCallback
 import com.batuhandemirbas.planty.data.remote.RetrofitClient
 import com.batuhandemirbas.planty.data.remote.RetrofitService
-import com.batuhandemirbas.planty.data.model.UserPlant
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -20,8 +21,9 @@ import retrofit2.Response
 import java.util.*
 
 data class HomeUiState(
-    var userPlant: UserPlant? = null,
-    var plantyData: JsonObject? = null
+    val userPlant: Plant? = null,
+    val plantyData: JsonObject? = null,
+    val isMotorOn: JsonObject? = null
 
 )
 
@@ -33,15 +35,15 @@ class HomeViewModel : ViewModel() {
 
     private val db = Firebase.firestore
 
-    fun getUserPlantsData() {
-        val userPlantsRef = db.collection("myPlants").document("yUbAs0EsHfRu0ZJTRvaI")
+    fun getPlantData() {
+        val plantRef = db.collection("plants").document("bonsai")
 
-        userPlantsRef.addSnapshotListener {  documentSnapshot, error ->
-            val userPlant = documentSnapshot?.toObject<UserPlant>()
+        plantRef.addSnapshotListener { documentSnapshot, _ ->
+            val plant = documentSnapshot?.toObject<Plant>()
 
             _uiState.update { currentState ->
 
-                currentState.copy(userPlant = userPlant)
+                currentState.copy(userPlant = plant)
 
             }
 
@@ -52,7 +54,7 @@ class HomeViewModel : ViewModel() {
     fun getPlantyLastData(context: Context) {
 
         val timer = Timer()
-        val task = object: TimerTask() {
+        val task = object : TimerTask() {
             override fun run() {
                 val call = RetrofitClient.getApiClient(context).create(RetrofitService::class.java)
                     .getPlantyLastData()
@@ -73,20 +75,15 @@ class HomeViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
+                        Toast.makeText(context, t.message + "homeview error", Toast.LENGTH_SHORT).show()
                     }
 
                 }))
             }
         }
 
-        timer.schedule(task, 0, 15000)
 
-
-
-
-
-
+        timer.schedule(task, 0, 5000)
 
     }
 

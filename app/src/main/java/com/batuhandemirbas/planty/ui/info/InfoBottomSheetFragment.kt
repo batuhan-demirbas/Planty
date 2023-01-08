@@ -29,7 +29,8 @@ class InfoBottomSheetFragment : BottomSheetDialogFragment() {
                     // Update UI elements
 
                     with(binding) {
-                        textVeiwDate.text = it.plant?.date?.let { date -> viewModel.getPlantAge(date) }
+                        textVeiwDate.text =
+                            it.plant?.date?.let { date -> viewModel.getPlantAge(date) }
                         textViewWatering.text = it.plant?.water?.frequency
                         textViewHumidity.text = it.plant?.water?.humidity
                         textViewTemperature.text = it.plant?.temperature
@@ -49,17 +50,9 @@ class InfoBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentInfoBottomSheetBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
+        return binding.root
     }
 
     override fun onDestroyView() {

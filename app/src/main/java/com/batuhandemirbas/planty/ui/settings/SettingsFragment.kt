@@ -40,7 +40,7 @@ class SettingFragment : Fragment() {
                 viewModel.uiState.collect {
                     // Update UI elements
 
-                    Glide.with(requireContext()).load("${it.userPlant?.image}").into(binding.image)
+                    Glide.with(requireContext()).load("${it.userPlant?.photo}").into(binding.image)
 
                     with(binding) {
                         nameEditText.setText(it.userPlant?.name)

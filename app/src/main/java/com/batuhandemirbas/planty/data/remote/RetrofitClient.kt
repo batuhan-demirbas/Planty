@@ -18,8 +18,7 @@ object RetrofitClient {
             return "https://api.thingspeak.com"
         }
 
-
-    fun getApiClient(context: Context?, isCinemwamToken: Boolean = true): Retrofit {
+    fun getApiClient(context: Context?): Retrofit {
         context?.let {
 
             val httpClient = OkHttpClient.Builder()

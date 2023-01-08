@@ -2,16 +2,23 @@ package com.batuhandemirbas.planty
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.batuhandemirbas.planty.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -20,11 +27,27 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        with(binding.buttonWatering) {
-            setMaxImageSize(120)
-            imageTintList = ResourcesCompat.getColorStateList(resources, R.color.white, null)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
 
+                    binding.buttonWatering.setOnClickListener {
+                        viewModel.runMotor(this@MainActivity)
+                    }
+
+                    val motor = it.isMotorOn
+
+                }
+
+            }
+
+            with(binding.buttonWatering) {
+                setMaxImageSize(120)
+                imageTintList = ResourcesCompat.getColorStateList(resources, R.color.white, null)
+
+            }
         }
+
     }
 
     override fun onStart() {
@@ -34,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavBar = binding.bottomNavigationView
 
         bottomNavBar.setupWithNavController(navController)
+
+
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
 
@@ -68,7 +93,11 @@ class MainActivity : AppCompatActivity() {
                     if (navController.currentDestination?.id != R.id.homeFragment) {
                         navController.navigate(R.id.action_global_homeFragment)
                         it.icon =
-                            ResourcesCompat.getDrawable(resources, R.drawable.ic_home_filled, null)
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.ic_home_filled,
+                                null
+                            )
                     }
                     true
                 }
@@ -121,7 +150,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
     }
-
-
 }

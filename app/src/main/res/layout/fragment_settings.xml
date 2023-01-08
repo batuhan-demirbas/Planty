@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="DONE"
+        android:text="@string/done"
         android:textColor="@color/primary_400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Name"
+        android:text="@string/name"
         android:textColor="@color/gray_600"
         app:layout_constraintStart_toStartOf="@id/nameEditText"
         app:layout_constraintTop_toBottomOf="@id/image" />
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Type"
+        android:text="@string/type"
         android:textColor="@color/gray_600"
         app:layout_constraintStart_toStartOf="@id/typeEditText"
         app:layout_constraintTop_toBottomOf="@id/nameEditText" />
